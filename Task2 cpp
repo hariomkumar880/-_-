@@ -1,0 +1,97 @@
+
+
+# CodeAlpha_Task 2 
+
+***  Excited to share that I've completed my next task at CodeAlpha: developing a Sudoku solver in C++! 🧩 ***
+
+ My another task is :-   Write a program that solves Sudoku puzzles. Implement
+                         an algorithm to solve puzzles of varying difficulty
+                         levels. You can also create a graphical user interface
+                         (GUI) for user interaction.
+
+          Welcome to my solves Sudoku puzzles.! This simple console-based game is developed in C++ as part of my internship at Code Alpha.
+          In this game , the computer solve the sudoku puzzles by using algorithm.
+
+
+***** In CodeAlpha_task also uploaded video file(mp4) that help how code of task2 work *****  
+
+       ---->>> SOURCE CODE <<<----
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+bool is_valid(vector<vector<int>>& board, int row, int col, int num) {
+    for (int i = 0; i < 9; ++i) {
+        if (board[row][i] == num || board[i][col] == num)
+            return false;
+    }
+    int start_row = 3 * (row / 3), start_col = 3 * (col / 3);
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            if (board[start_row + i][start_col + j] == num)
+                return false;
+        }
+    }
+    return true;
+}
+
+pair<int, int> find_empty_cell(vector<vector<int>>& board) {
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if (board[i][j] == 0)
+                return make_pair(i, j);
+        }
+    }
+    return make_pair(-1, -1);
+}
+
+bool solve_sudoku(vector<vector<int>>& board) {
+    auto [row, col] = find_empty_cell(board);
+    if (row == -1 && col == -1)
+        return true;
+    for (int num = 1; num <= 9; ++num) {
+        if (is_valid(board, row, col, num)) {
+            board[row][col] = num;
+            if (solve_sudoku(board))
+                return true;
+            board[row][col] = 0;
+        }
+    }
+    return false;
+}
+
+void print_board(vector<vector<int>>& board) {
+    for (const auto& row : board) {
+        for (int num : row) {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    vector<vector<int>> easy_board = {
+        {4, 3, 0, 0, 7, 0, 0, 0, 0},
+        {6, 0, 0, 1, 9, 4, 0, 0, 0},
+        {0, 9, 8, 0, 0, 0, 0, 6, 0},
+        {8, 0, 0, 0, 6, 0, 0, 0, 3},
+        {5, 0, 0, 8, 0, 3, 0, 0, 1},
+        {7, 0, 0, 0, 2, 0, 0, 0, 6},
+        {0, 6, 0, 0, 0, 0, 2, 8, 0},
+        {0, 0, 0, 5, 1, 9, 0, 0, 4},
+        {0, 0, 0, 0, 8, 0, 0, 7, 9}
+    };
+    
+    cout << "Initial Sudoku Puzzle:" << endl;
+    print_board(easy_board);
+    cout << endl << "Solving Sudoku Puzzle:" << endl;
+    if (solve_sudoku(easy_board))
+        print_board(easy_board);
+    else
+        cout << "No solution exists!" << endl;
+
+    return 0;
+}
