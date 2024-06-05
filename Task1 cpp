@@ -1,0 +1,70 @@
+# CodeAlpha_Project_Name Task 1 
+
+*** I developed a number guessing game where the computer randomly selects a number, and the player has to guess it, with hints guide the player.
+             This project was a fantastic way to deepen my understanding of C++ and enhance my problem-solving skills.***
+
+ My first task is   "Develop a number guessing game where the
+                    computer randomly selects a number, and the
+                    player has to guess it. Provide hints like "too high"
+                    or "too low" to help the player guess the correct
+                    number".
+
+          Welcome to my Number Guessing Game project! This simple console-based game is developed in C++ as part of my internship at Code Alpha.
+          The game involves the computer randomly selecting a number between 1 and 10, and the player must guess the number.
+          The game provides hints like "too high" or "too low" to help the player guess the correct number.
+
+Features of code:-
+        Random Number Generation:-  The game uses a random number generator to select a number between 1 and 10.
+        User Input:-  Players can enter their guesses via the console.
+        Hint System:-  The game provides feedback if the guess is too high or too low.
+        Winning Condition:-  The game congratulates the player when the correct number is guessed.
+
+
+***** In CodeAlpha_Project_Name also uploaded video file(mp4) that help how task 1 code work *****  
+
+       ---->>> SOURCE CODE <<<----
+
+#include<stdio.h>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+int main() {
+    //Random number generator
+    std::srand(static_cast<unsigned int>(std::time(0)));
+    
+    // Generate a random number between 1 and 10
+    int computerNumber = std::rand() % 10 + 1;
+    char name[20];
+    int guess = 0;
+
+     puts("Enter your name: ");
+     scanf("%[^\n]s",name);
+    
+     // Some greating message for user
+    std::cout << "________________________ Welcome to the Number Guessing Game!! _______________________" << std::endl;
+    printf("Hello dear ");
+    printf("%s",name);
+    printf("\nLets play it \n");
+    std::cout << "  ---->>I have selected a number between 1 and 10." << std::endl;
+    std::cout << "  ---->>Can you guess, what it is?" << std::endl;
+
+    //start loop
+    while (true) {
+        std::cout << "Enter your guess: ";
+        std::cin >> guess;
+
+        if (guess > computerNumber) {
+            std::cout << "Too high, please Try again." << std::endl;
+        } else if (guess < computerNumber) {
+            std::cout << "Too low, plese Try again." << std::endl;
+        } else {
+            std::cout << "_____Congratulations! You've guessed the number!_____" << std::endl;
+            std::cout << "_____Have a nice day!_____" << std::endl;
+            break; 
+    // End loop
+        }
+    }
+
+    return 0;
+}
